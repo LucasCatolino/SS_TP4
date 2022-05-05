@@ -33,7 +33,7 @@ public class GearPredictorCorrector implements Algorithm{
         x += correctedCoefs[0][i] * Math.pow(ts, i) / factorial(i);
         y += correctedCoefs[1][i] * Math.pow(ts, i) / factorial(i);
 
-        return  new Particle(p.getMass(), new Vector(x, y), new Vector(vX, vY), 0);;
+        return  new Particle(p.getMass(), new Vector(x, y), new Vector(vX, vY), 0);
     }
 
     // Step 1
