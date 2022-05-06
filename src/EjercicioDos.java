@@ -1,10 +1,12 @@
 import algorithms.Algorithm;
 import algorithms.Beeman;
 import models.Particle;
+import models.Vector;
 import systems.Radiation;
 import systems.SystemType;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EjercicioDos {
@@ -17,7 +19,6 @@ public class EjercicioDos {
         simulation("pState");
     }
 
-
     public static void simulation(String fileName) throws IOException {
         FileWriter output = new FileWriter("resources/" +fileName + ".txt");
 
@@ -29,4 +30,6 @@ public class EjercicioDos {
             t += T_STEP;
         }
         output.close();
-    }}
+    }
+
+}

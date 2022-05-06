@@ -19,7 +19,7 @@ public class Radiation implements SystemType {
 
 	private static final double MAX_V = 5 * Math.pow(10, 4);
 	private static final double MIN_V = 5 * Math.pow(10, 3);
-	private static final double MAX_P = (((double)L*D)/2) + D;
+	private static final double MAX_P = (((double)L*D)/2) ;
 	private static final double MIN_P = (((double)L*D)/2) - D;
 
 	private static final List<Particle> space = initSpace();
@@ -46,6 +46,7 @@ public class Radiation implements SystemType {
 				toReturn.add(new Particle(M, position, velocity, isPositiveCharge? Q : -Q));
 				isPositiveCharge = !isPositiveCharge;
 			}
+			isPositiveCharge = !isPositiveCharge;
 		}
 		return toReturn;
 	}

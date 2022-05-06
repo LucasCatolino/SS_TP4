@@ -6,9 +6,9 @@ import java.util.Scanner;
 public class AnimationFileCreator {
 
     private static final double D = Math.pow(10, -8);
-    private static final int N = 16*16+1;
+    private static final int N = 16*16+3;
     private static final int L = 16;
-    private static final double R = D/3;
+    private static final double R = D/5;
 
     public static void main(String[] args) throws IOException, InterruptedException {
         FilesCreator("pState");
@@ -22,8 +22,9 @@ public class AnimationFileCreator {
 
         String staticParticle = staticParticle(); //siempre es igual
 
-        output.write(N + "\n"); //cantidad total de particulas
+
         while (FileScanner.hasNext()) {
+            output.write(N + "\n"); //cantidad total de particulas
             output.write("t=" + FileScanner.next() + "\n"); //tiempo
             output.write(FileScanner.next() + "\t" + FileScanner.next() + "\t" + R + "\t1\t0\n");
             FileScanner.next(); //tiro la velocidad
@@ -48,9 +49,10 @@ public class AnimationFileCreator {
                 }
                 isPositiveCharge = !isPositiveCharge;
             }
+            isPositiveCharge = !isPositiveCharge;
         }
         toReturn.append("0\t0\t").append(R).append("\t0\t0\n");
-        toReturn.append("0\t").append(L).append("\t").append(R).append("\t0\t0\n");
+        toReturn.append("0\t").append((L-1)*D).append("\t").append(R).append("\t0\t0\n");
         return String.valueOf(toReturn);
     }
 
