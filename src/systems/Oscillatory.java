@@ -22,13 +22,13 @@ public class Oscillatory implements SystemType{
         if(order >= 0){
             toRet.add(p.getPosition());
             if(order > 0){
-                toRet.add(new Vector(p.getVelocity().getX(), p.getVelocity().getY()));
+                toRet.add(p.getVelocity());
             }
         }
 
         for(int i = 2; i <= order; i++){
-            double x = (-K * toRet.get(i - 2).getX() - GAMMA * toRet.get(i-1).getX()/p.getMass());
-            double y = (-K * toRet.get(i - 2).getY() - GAMMA * toRet.get(i-1).getY()/p.getMass());
+            double x = (-K * toRet.get(i - 2).getX() - GAMMA * toRet.get(i-1).getX())/p.getMass();
+            double y = (-K * toRet.get(i - 2).getY() - GAMMA * toRet.get(i-1).getY())/p.getMass();
             toRet.add(new Vector(x,y));
         }
         return toRet;

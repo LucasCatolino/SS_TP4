@@ -14,24 +14,16 @@ public class GearPredictorCorrector implements Algorithm{
 
     @Override
     public Particle next(Particle p, Particle prevP, SystemType system, double ts) {
-        ts = ts/2;
 
         Vector[] predictedParticles = predict(system.getRDerivatives(ORDER, p), ts);
         Particle predictedP = new Particle(p.getMass(), predictedParticles[0], predictedParticles[1], 0);
         Vector relativeR2 = evaluate(predictedParticles, predictedP, system, ts);
         double[][] correctedCoefs = correct(relativeR2, p.getMass(), predictedParticles, ts);
 
-        double vX = 0, vY = 0;
-        double x = 0, y = 0;
-        int i;
-        for (i = 0; i<ORDER; i++){
-            x += correctedCoefs[0][i] * Math.pow(ts, i) / factorial(i);
-            y += correctedCoefs[1][i] * Math.pow(ts, i) / factorial(i);
-            vX += correctedCoefs[0][i + 1] * Math.pow(ts, i) / factorial(i);
-            vY += correctedCoefs[1][i + 1] * Math.pow(ts, i) / factorial(i);
-        }
-        x += correctedCoefs[0][i] * Math.pow(ts, i) / factorial(i);
-        y += correctedCoefs[1][i] * Math.pow(ts, i) / factorial(i);
+        double x = correctedCoefs[0][0];
+        double y = correctedCoefs[1][0];
+        double vX = correctedCoefs[0][1];
+        double vY = correctedCoefs[1][1];
 
         return  new Particle(p.getMass(), new Vector(x, y), new Vector(vX, vY), 0);
     }
@@ -64,7 +56,7 @@ public class GearPredictorCorrector implements Algorithm{
         double aDeltaX =  (aX - predictedParticles[2].getX()) * (ts * ts) / 2;
         double aDeltaY= (aY - predictedParticles[2].getY()) * (ts * ts) / 2;
 
-        return new Vector(aDeltaX * predictedP.getMass(), aDeltaY * predictedP.getMass());
+        return new Vector(aDeltaX , aDeltaY);
     }
 
     // Step 3
