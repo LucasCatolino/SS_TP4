@@ -18,6 +18,11 @@ public class Vector {
         this.y = y;
     }
 
+    public Vector( Vector v) {
+        x = v.x;
+        y = v.y;
+    }
+
     public double getX() {
         return x;
     }
@@ -35,7 +40,11 @@ public class Vector {
     }
 
     public double getDistanceTo(Vector v){
-        return Math.sqrt(Math.pow((x - v.x),2) + Math.pow((y - v.y),2));
+        return getDistanceTo(v.x, v.y);
+    }
+
+    public double getDistanceTo(double x, double y){
+        return Math.sqrt(Math.pow((this.x - x),2) + Math.pow((this.y - y),2));
     }
 
     public Vector getVersor(){
@@ -46,11 +55,20 @@ public class Vector {
         return Math.sqrt(Math.pow((x),2) + Math.pow((y),2));
     }
 
-
-    public void sum(Vector v){
+    public void add(Vector v){
         this.x += v.x;
         this.y += v.y;
     }
+
+    public void multi(double e){
+        x *= e;
+        y *= e;
+    }
+
+    public Vector sub(Vector v){
+        return new Vector(x - v.x, y - v.y);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
