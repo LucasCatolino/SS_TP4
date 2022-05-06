@@ -76,6 +76,6 @@ public class Vector {
 
     @Override
     public String toString() {
-        return "(" + x + ", " + y + ")";
+        return x+"\t"+y;
     }
 }

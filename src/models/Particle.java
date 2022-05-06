@@ -5,6 +5,15 @@ public class Particle{
     private Vector position;
     private Vector velocity;
     private final double charge;
+    private double PotentialEnergy;
+
+    public double getPotentialEnergy() {
+        return PotentialEnergy;
+    }
+
+    public void setPotentialEnergy(double potentialEnergy) {
+        PotentialEnergy = potentialEnergy;
+    }
 
     public Particle(Particle particle){
         mass = particle.mass;
