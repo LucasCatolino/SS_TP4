@@ -33,9 +33,9 @@ public class CuadraticError {
 		calculateError(TS5);
 		calculateError(TS6);
 		
-        createFile("beeman.csv", cuadraticBeeman);
+        //createFile("beeman.csv", cuadraticBeeman);
         createFile("gear.csv", cuadraticGear);
-        createFile("verlet.csv", cuadraticVerlet);
+        //createFile("verlet.csv", cuadraticVerlet);
 	}
 	
     private void calculateError(String ts) {
@@ -76,8 +76,10 @@ public class CuadraticError {
         double verletCuadratic= 0;
         int total= 0;
         
+        analyticScanner.next(); //skip time
+        analyticScanner.next(); //first element
+        
         while (analyticScanner.hasNext() && beemanScanner.hasNext() && gearScanner.hasNext() && verletScanner.hasNext()) {
-        	
         	analyticScanner.next(); //skip time
         	double analyticX= Double.parseDouble(analyticScanner.next());
         	
