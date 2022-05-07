@@ -14,37 +14,39 @@ public class Radiation implements SystemType {
 	private static final double M = Math.pow(10, -27);
 
 	private static final double D = Math.pow(10, -8);
-	private static final int L = 16;
+	private static final int  L = 16; //cantidad de particulas por lado
 	private static final double MIN_DISTANCE = D*0.01; //distancia minima entre particulas
 
 	private static final double MAX_V = 5 * Math.pow(10, 4);
 	private static final double MIN_V = 5 * Math.pow(10, 3);
-	private static final double MAX_P = ((double)L/2) + D; //TODO: esta mal
-	private static final double MIN_P = ((double) L/2) - D; //TODO esta mal
+	private static final double MAX_P = (((double)L*D)/2) ;
+	private static final double MIN_P = (((double)L*D)/2) - D;
 
-	List<Particle> space = initSpace();
-	//Particle particle = initParticle();
+	private static final List<Particle> space = initSpace();
 
 	private Particle initParticle() {
 		Vector initialPosition = new Vector(0, random(MIN_P, MAX_P));
 		Vector initialVelocity = new Vector(random(MIN_V, MAX_V),0);
-		return new Particle(M, initialPosition, initialVelocity, Q);
+		Particle toReturn = new Particle(M, initialPosition, initialVelocity, Q);
+		toReturn.setPotentialEnergy(getPotentialEnergy(toReturn));
+		return toReturn;
 	}
 
 	private double random(double min, double max){
-		return Math.random() * (max - min) + max;
+		return ((Math.random() * (max - min))+ min);
 	}
 	
-	private List<Particle> initSpace(){
+	private static List<Particle> initSpace(){
 		List<Particle> toReturn = new ArrayList<>();
 		boolean isPositiveCharge = true;
 		for (int x = 1; x < L+1; x++) { //el x empieza en uno para dejar lugar a la particula inicial
 			for (int y = 0; y < L; y++) {
-				Vector position = new Vector(y*D, x*D);
+				Vector position = new Vector(x*D, y*D);
 				Vector velocity = new Vector(0,0);
 				toReturn.add(new Particle(M, position, velocity, isPositiveCharge? Q : -Q));
 				isPositiveCharge = !isPositiveCharge;
 			}
+			isPositiveCharge = !isPositiveCharge;
 		}
 		return toReturn;
 	}
@@ -96,10 +98,11 @@ public class Radiation implements SystemType {
 		List<Particle> ToReturn = new ArrayList<>();
 		Particle prevParticle = new Particle(M, null, null, Q);
 		Particle currentParticle = initParticle();
-
+		ToReturn.add(currentParticle);
 		for (int t = 0; t < tmax && !endCondition(currentParticle); t += ts) {
 			currentParticle = algorithm.next(currentParticle, prevParticle, this, ts);
-			prevParticle = ToReturn.get(ToReturn.size()-1); //todo: esta mal
+			currentParticle.setPotentialEnergy(getPotentialEnergy(currentParticle));
+			prevParticle = ToReturn.get(ToReturn.size()-1);
 			ToReturn.add(new Particle(currentParticle));
 		}
 		return ToReturn;
