@@ -20,6 +20,7 @@ public class Particle{
         position = new Vector(particle.position.getX(), particle.position.getY());
         velocity = new Vector(particle.velocity.getX(), particle.velocity.getY());
         charge = particle.charge;
+        PotentialEnergy = particle.PotentialEnergy;
     }
     public Particle(double mass, Vector position, Vector velocity, double electricCharge) {
         this.mass = mass;
