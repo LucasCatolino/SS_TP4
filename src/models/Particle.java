@@ -41,6 +41,10 @@ public class Particle{
         return velocity;
     }
 
+    public double getKineticEnergy(){
+        return (mass/2)*velocity.getModule()*velocity.getModule();
+    }
+
     public void setPosition(Vector position) {
         this.position = position;
     }

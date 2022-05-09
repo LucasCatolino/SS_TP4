@@ -26,7 +26,7 @@ public class Radiation implements SystemType {
 
 	private Particle initParticle() {
 		Vector initialPosition = new Vector(0, random(MIN_P, MAX_P));
-		Vector initialVelocity = new Vector(random(MIN_V, MAX_V),0);
+		Vector initialVelocity = new Vector(MAX_V,0);
 		Particle toReturn = new Particle(M, initialPosition, initialVelocity, Q);
 		toReturn.setPotentialEnergy(getPotentialEnergy(toReturn));
 		return toReturn;
